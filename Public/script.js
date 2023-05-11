@@ -4,8 +4,8 @@ let windSpeed = '';
 let description = '';
 let images = '';
 let imageApi;
-
-fetch("/image", {
+let weatherApi;
+fetch("/netlify/functions/server", {
   method: "POST",
   headers: {
     "Content-Type": "application/json"
@@ -14,22 +14,12 @@ fetch("/image", {
   .then(response => response.json())
   .then(data => {
     imageApi = data.imageKey;
+    weatherApi = data.weatherKey;
   })
   .catch(error => {
     console.error("Error:", error);
   });
 
-let weatherApi;
-
-fetch("/", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  }
-})
-  .then(response => response.json())
-  .then(data => {
-    weatherApi = data.weatherKey;
 
     let vBtn = document.getElementById('btn');
     let vinputValue = document.querySelector('.inputValue');
@@ -74,7 +64,3 @@ fetch("/", {
             });
         });
     });
-  })
-  .catch(error => {
-    console.error("Error:", error);
-  });
